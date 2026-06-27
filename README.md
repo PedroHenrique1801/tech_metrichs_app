@@ -4,7 +4,7 @@ Este é um projeto de Data App interativo desenvolvido em Python com **Streamlit
 
 O painel foi populado com métricas baseadas nas tendências de consumo do mercado brasileiro atual, cobrindo componentes populares de alta demanda como processadores AMD Ryzen, placas de vídeo NVIDIA RTX, armazenamento NVMe e periféricos gamers.
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
 - **Análise Macroeconômica:** Visualização de Receita Total, Total de Transações e Margem Média através de cartões de métricas dinâmicos.
 - **Mix de Categorias:** Gráfico interativo (Donut Chart) mapeando a distribuição de vendas por categorias (Hardware, Armazenamento, Periféricos e Monitores).
@@ -13,7 +13,7 @@ O painel foi populado com métricas baseadas nas tendências de consumo do merca
 - **Filtros Avançados:** Barra lateral responsiva com filtros dinâmicos por período de data, região e seleção específica de componentes.
 - **Exportação de Relatórios:** Funcionalidade integrada para geração e download de relatórios analíticos em PDF e planilhas CSV em tempo real.
 
-## 🛠️ Stack Tecnológica
+## Stack Tecnológica
 
 - **Linguagem:** Python 3.13+
 - **Interface & Front-end:** Streamlit
@@ -22,7 +22,7 @@ O painel foi populado com métricas baseadas nas tendências de consumo do merca
 - **Banco de Dados:** SQLite (Engine de persistência local)
 - **Engine de Relatórios:** FPDF
 
-## 📦 Como Executar o Projeto Localmente
+## Como Executar o Projeto Localmente
 
 Abra o terminal na pasta do projeto e execute a sequência de comandos abaixo para criar o ambiente isolado, instalar as dependências e rodar a aplicação:
 
