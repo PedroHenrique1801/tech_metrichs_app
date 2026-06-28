@@ -1,6 +1,6 @@
 # Tech Metrics - Dashboard Interativo de Sales Analytics para Hardware
 
-Este é um projeto de Data App interativo desenvolvido em Python com **Streamlit** para análise de dados de vendas (*Sales Analytics*) focado no mercado de hardware, componentes de PC e periféricos. 
+Este é um projeto de Data App interativo desenvolvido em Python com **Streamlit** para análise de dados de vendas (Sales Analytics) focado no mercado de hardware, componentes de PC e periféricos. 
 
 O painel foi populado com métricas baseadas nas tendências de consumo do mercado brasileiro atual, cobrindo componentes populares de alta demanda como processadores AMD Ryzen, placas de vídeo NVIDIA RTX, armazenamento NVMe e periféricos gamers.
 
