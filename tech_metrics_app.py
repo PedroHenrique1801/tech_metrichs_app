@@ -2,12 +2,10 @@
 import sqlite3 
 import numpy as np
 import pandas as pd
-
 import plotly.express as px
 import streamlit as st
 from fpdf import FPDF
 from fpdf.enums import XPos, YPos
-
 from datetime import datetime, date, timedelta
 
 st.set_page_config(
