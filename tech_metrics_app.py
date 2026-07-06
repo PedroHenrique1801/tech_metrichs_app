@@ -8,7 +8,6 @@ from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 from datetime import datetime, date, timedelta
 
-# 1. CONFIGURAÇÃO DA PÁGINA (ESTILO BI CORPORATIVO)
 st.set_page_config(
     page_title="Executive Sales Analytics",
     page_icon="📊",
@@ -16,27 +15,24 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# 2. DICIONÁRIO CENTRAL DE TEMA (ESTÉTICA DASHDARK X)
 BI_THEME = {
     "colors": {
-        "bg_app": "#0B0E14",         # Fundo azul-marinho super escuro
-        "bg_card": "#151A22",        # Fundo dos cards (levemente mais claro)
-        "border_card": "#222B38",    # Bordas sutis
-        "text_main": "#FFFFFF",      # Texto principal branco
-        "text_muted": "#8A94A6",     # Texto secundário cinza-azulado
-        "primary_purple": "#8B5CF6", # Roxo neon 
-        "primary_cyan": "#00E5FF",   # Ciano neon 
-        "positive_text": "#10B981",  # Verde esmeralda (Delta)
-        "positive_bg": "rgba(16, 185, 129, 0.15)", # Fundo do Delta Verde
+        "bg_app": "#0B0E14",
+        "bg_card": "#151A22",
+        "border_card": "#222B38",
+        "text_main": "#FFFFFF",
+        "text_muted": "#8A94A6",
+        "primary_purple": "#8B5CF6",
+        "primary_cyan": "#00E5FF",
+        "positive_text": "#10B981",
+        "positive_bg": "rgba(16, 185, 129, 0.15)",
     },
     "categorical": {
-        # Regiões
         "Norte": "#00E5FF",
         "Nordeste": "#8B5CF6",
         "Sul": "#3B82F6",
         "Sudeste": "#EC4899",
         "Centro-Oeste": "#F59E0B",
-        # Categorias
         "Hardware": "#8B5CF6",
         "Armazenamento": "#00E5FF",
         "Periféricos": "#EC4899",
@@ -44,7 +40,6 @@ BI_THEME = {
     }
 }
 
-# 3. CAMADA DE DADOS & BANCO DE DADOS
 def dsa_init_db(conn):
     cursor = conn.cursor()
     cursor.execute("""
@@ -118,7 +113,6 @@ def dsa_carrega_dados():
     conn.close()
     return df
 
-# 4. CAMADA DE APRESENTAÇÃO - FILTROS DA SIDEBAR
 def dsa_filtros_sidebar(df):
     st.sidebar.markdown(
         f"""
@@ -169,7 +163,6 @@ def dsa_filtros_sidebar(df):
 def gerar_mini_sparkline(df_historico, coluna_valor):
     df_agrupado = df_historico.groupby("date")[[coluna_valor]].sum().reset_index()
     fig = px.line(df_agrupado, x="date", y=coluna_valor, template="plotly_dark")
-    # Estilo suave na sparkline com cor roxa
     fig.update_traces(line_shape="spline", line=dict(color=BI_THEME["colors"]["primary_purple"], width=2), fill='tozeroy', fillcolor='rgba(139, 92, 246, 0.1)')
     fig.update_layout(
         xaxis=dict(visible=False), yaxis=dict(visible=False),
@@ -181,15 +174,12 @@ def gerar_mini_sparkline(df_historico, coluna_valor):
     )
     return fig
 
-# 5. CARDS DE KPI COMPLEXOS 
-# 5. CARDS DE KPI COMPLEXOS 
 def dsa_renderiza_cards_kpis(df):
     total_faturamento = df["faturamento"].sum()
     total_qty = df["quantidade"].sum()
     avg_ticket = total_faturamento / total_qty if total_qty > 0 else 0
     transactions = df.shape[0]
     
-    # CSS Inline seguro
     card_style = f"background-color: {BI_THEME['colors']['bg_card']}; padding: 20px; border-radius: 12px; border: 1px solid {BI_THEME['colors']['border_card']}; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);"
     title_style = f"margin: 0; font-size: 14px; color: {BI_THEME['colors']['text_muted']}; font-weight: 500;"
     val_style = f"margin: 10px 0 5px 0; font-size: 26px; color: {BI_THEME['colors']['text_main']}; font-weight: bold;"
@@ -215,7 +205,6 @@ def dsa_renderiza_cards_kpis(df):
         
     return total_faturamento, total_qty, avg_ticket
 
-# 6. EXPORTAÇÃO EXECUTIVA PARA PDF (100% INTACTO)
 def dsa_gera_pdf_report(df_filtrado, total_faturamento, total_quantidade, avg_ticket):
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
@@ -270,27 +259,22 @@ def dsa_gera_pdf_report(df_filtrado, total_faturamento, total_quantidade, avg_ti
     result = pdf.output() 
     return result.encode("latin-1") if isinstance(result, str) else bytes(result)
 
-# 7. INJEÇÃO DE ESTILO CSS SEGURO
 def dsa_set_custom_theme():
     css = f"""
     <style>
-        /* Fundo principal da aplicação */
         [data-testid="stAppViewContainer"], .stApp {{ background-color: {BI_THEME['colors']['bg_app']} !important; }}
         [data-testid="stHeader"] {{ background-color: transparent !important; }}
         
-        /* Barra lateral */
         [data-testid="stSidebar"] {{
             background-color: {BI_THEME['colors']['bg_card']} !important;
             border-right: 1px solid {BI_THEME['colors']['border_card']} !important;
         }}
         
-        /* ARREDONDAMENTO GLOBAL SEGURO DOS GRÁFICOS E MAPA */
         [data-testid="stPlotlyChart"] {{
             border-radius: 12px !important;
             overflow: hidden !important;
         }}
         
-        /* Cor das tags nos filtros */
         [data-baseweb="tag"] {{
             background-color: {BI_THEME['colors']['primary_purple']} !important;
             color: #FFFFFF !important;
@@ -299,17 +283,14 @@ def dsa_set_custom_theme():
     """
     st.markdown(css, unsafe_allow_html = True)
 
-# 8. CORE ENGINE DA APLICAÇÃO
 def tech_metrics_app():
     dsa_set_custom_theme()
     df = dsa_carrega_dados()
     df_filtrado = dsa_filtros_sidebar(df)
 
-    # NOVO TÍTULO ESTILO HERO BANNER COM ILUSTRAÇÃO
-    col_texto, col_imagem = st.columns([1.5, 1]) # Proporção: Texto ocupa mais espaço que a imagem
+    col_texto, col_imagem = st.columns([1.5, 1])
     
     with col_texto:
-        # A tag <div> abaixo cria a linha superior roxa (border-top) e a formatação do texto
         st.markdown(f"""
             <div style="border-top: 3px solid {BI_THEME['colors']['primary_purple']}; width: 80%; padding-top: 15px; margin-bottom: 20px;">
                 <h1 style="color: {BI_THEME['colors']['text_main']}; font-size: 4.5rem; font-style: italic; font-weight: 800; margin: 0; letter-spacing: -1px; line-height: 1;">Tech Metrics</h1>
@@ -326,13 +307,12 @@ def tech_metrics_app():
             unsafe_allow_html=True
         )
 
-    st.markdown("<br>", unsafe_allow_html=True) # Espaçamento antes dos cards
+    st.markdown("<br>", unsafe_allow_html=True)
 
     if df_filtrado.empty:
         st.warning("Nenhum dado encontrado com os filtros selecionados.")
         return
 
-    # Renderização da Seção 1 (Cards + Gauge)
     col_kpis, col_gauge = st.columns([3, 1])
     
     with col_kpis:
@@ -350,7 +330,7 @@ def tech_metrics_app():
             gauge = {
                 'axis': {'range': [None, 100], 'tickwidth': 1, 'tickcolor': "white"},
                 'bar': {'color': BI_THEME["colors"]["primary_cyan"]},
-                'bgcolor': BI_THEME["colors"]["bg_card"], # Fundo ajustado para camuflar
+                'bgcolor': BI_THEME["colors"]["bg_card"],
                 'borderwidth': 0
             }
         ))
@@ -362,7 +342,6 @@ def tech_metrics_app():
 
     st.markdown("---")
 
-    # AS ABAS ESTÃO DE VOLTA 100% INTACTAS
     tab1, tab2 = st.tabs(["📊 Visual - Dashboard ", "📋 Dados Tabelados e Exportações"])
 
     with tab1:
@@ -373,7 +352,6 @@ def tech_metrics_app():
             daily_rev = df_filtrado.groupby("date")[["faturamento"]].sum().reset_index()
             
             fig_line = px.line(daily_rev, x = "date", y = "faturamento", template = "plotly_dark", height = 360)
-            # Aplicando a curva suave spline e roxo neon
             fig_line.update_traces(line_shape="spline", fill = 'tozeroy', line = dict(color = BI_THEME["colors"]["primary_purple"], width = 3), fillcolor='rgba(139, 92, 246, 0.1)')
             fig_line.update_layout(
                 paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
@@ -386,33 +364,31 @@ def tech_metrics_app():
             cat_rev = df_filtrado.groupby("categoria")[["faturamento"]].sum().reset_index()
             
             fig_pie = px.pie(
-                cat_rev, values="faturamento", names="categoria", hole=0.6, # Aumentei o 'hole' para 0.6 para ficar mais parecido com sua referência
+                cat_rev, values="faturamento", names="categoria", hole=0.6,
                 template="plotly_dark", height=360,
                 color="categoria", color_discrete_map=BI_THEME["categorical"]
             )
             
-            # Limpa o interior do gráfico, deixando apenas as porcentagens
             fig_pie.update_traces(
                 textposition='inside', 
                 textinfo='percent',
                 hovertemplate="<b>%{label}</b><br>Faturamento: R$ %{value:,.2f}<extra></extra>"
             )
             
-            # Ativa e estiliza a legenda vertical à direita
             fig_pie.update_layout(
                 paper_bgcolor='rgba(0,0,0,0)', 
                 plot_bgcolor='rgba(0,0,0,0)', 
                 showlegend=True,
                 legend=dict(
-                    orientation="v",          # Legenda em formato vertical
-                    yanchor="middle",         # Ancoragem vertical no centro
-                    y=0.5,                    # Posição vertical (50% da altura)
-                    xanchor="left",           # Ancoragem horizontal à esquerda da legenda
-                    x=1.0,                    # Empurra a legenda para a direita do gráfico
+                    orientation="v",
+                    yanchor="middle",
+                    y=0.5,
+                    xanchor="left",
+                    x=1.0,
                     font=dict(color=BI_THEME['colors']['text_muted'], size=13),
-                    title=""                  # Remove o título padrão da legenda
+                    title=""
                 ),
-                margin=dict(l=0, r=80, t=30, b=20) # Margem direita (r=80) aumentada para dar espaço à legenda
+                margin=dict(l=0, r=80, t=30, b=20)
             )
             st.plotly_chart(fig_pie, use_container_width=True)
             
@@ -459,7 +435,6 @@ def tech_metrics_app():
             wd_rev = df_filtrado.groupby("dia_semana")[["faturamento"]].mean().reindex(dias_pt_ordem).reset_index()
 
             fig_heat = px.bar(wd_rev, x="dia_semana", y="faturamento", template="plotly_dark", height=340)
-            # CORRIGIDO: usando primary_purple no lugar de accent_gold
             fig_heat.update_traces(marker_color=BI_THEME["colors"]["primary_purple"])
             fig_heat.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
             st.plotly_chart(fig_heat, use_container_width=True)
