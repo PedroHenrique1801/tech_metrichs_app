@@ -4,7 +4,7 @@ Este é um projeto de Data App interativo desenvolvido em Python com **Streamlit
 
 O painel foi populado com métricas baseadas nas tendências de consumo do mercado brasileiro atual, cobrindo componentes populares de alta demanda como processadores AMD Ryzen, placas de vídeo NVIDIA RTX, armazenamento NVMe e periféricos.
 
-## Funcionalidades   
+## Funcionalidades
 
 - **Análise Macroeconômica:** Visualização de Receita Total, Total de Transações e Margem Média através de cartões de métricas dinâmicos.
 - **Mix de Categorias:** Gráfico interativo (Donut Chart) mapeando a distribuição de vendas por categorias (Hardware, Armazenamento, Periféricos e Monitores).
