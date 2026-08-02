@@ -20,7 +20,7 @@ O painel foi populado com métricas baseadas nas tendências de consumo do merca
 - **Manipulação de Dados:** Pandas & NumPy
 - **Visualização Gráfica:** Plotly Express (Dark Theme)
 - **Banco de Dados:** SQLite (Engine de persistência local)
-- **Engine de Relatórios:** FPDF
+- **Engine de Relatórios:** 
 
 ## Como Executar o Projeto Localmente
 
