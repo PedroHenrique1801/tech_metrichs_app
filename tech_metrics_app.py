@@ -17,7 +17,7 @@ st.set_page_config(
 
 BI_THEME = {
     "colors": {
-        "bg_app": "#0B0E14", 
+        "bg_app": "#0B0E14",
         "bg_card": "#151A22",
         "border_card": "#222B38",
         "text_main": "#FFFFFF",
