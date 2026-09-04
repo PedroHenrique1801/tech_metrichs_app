@@ -65,7 +65,7 @@ def dsa_init_db(conn):
         
         dict_produtos = {
             "Hardware": {
-                "Processador Ryzen 5 5600GT": 850.00, "Processador Ryzen 7 5700X3D": 
+                "Processador Ryzen 5 5600GT": 850.00, "Processador Ryzen 7 5700X3D": 1550.00,
                 "Placa-Mãe Biostar A520MT": 450.00, "Placa de Vídeo RTX 4060 MSI Ventus": 1900.00,
                 "Placa de Vídeo RX 6750 XT XFX": 2300.00, "Memória RAM DDR4 8GB": 419.90,
                 "Fonte MSI MAG A650BN": 350.00, "Fonte XPG Kyber 850W": 550.00
