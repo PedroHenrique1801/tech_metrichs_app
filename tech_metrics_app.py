@@ -20,7 +20,7 @@ BI_THEME = {
         "bg_app": "#0B0E14",
         "bg_card": "#151A22",
         "border_card": "#222B38",
-        "text_main": "#FFFFFF", 
+        "text_main": "#FFFFFF",
         "text_muted": "#8A94A6",
         "primary_purple": "#8B5CF6",
         "primary_cyan": "#00E5FF",
