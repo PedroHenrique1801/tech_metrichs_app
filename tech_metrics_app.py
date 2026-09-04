@@ -36,7 +36,7 @@ BI_THEME = {
         "Hardware": "#8B5CF6",
         "Armazenamento": "#00E5FF",
         "Periféricos": "#EC4899",
-        "Monitores": 
+        "Monitores": "#3B82F6"
     }
 }
 
